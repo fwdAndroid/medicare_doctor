@@ -25,93 +25,120 @@ class _MainDashboardState extends State<MainDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        selectedLabelStyle: TextStyle(color: mainColor),
-        unselectedLabelStyle: TextStyle(color: textColor),
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+    return WillPopScope(
+        onWillPop: () async {
+          final shouldPop = await _showExitDialog(context);
+          return shouldPop ?? false;
         },
-        items: [
-          BottomNavigationBarItem(
-            icon: _currentIndex == 0
-                ? Image.asset(
-                    "assets/home_blue.png",
-                    height: 18,
-                    width: 20,
-                  )
-                : Image.asset(
-                    "assets/home_grey.png",
-                    height: 18,
-                    width: 20,
-                  ),
-            label: 'Home',
+        child: Scaffold(
+          body: _screens[_currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            selectedLabelStyle: TextStyle(color: mainColor),
+            unselectedLabelStyle: TextStyle(color: textColor),
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: _currentIndex == 0
+                    ? Image.asset(
+                        "assets/home_blue.png",
+                        height: 18,
+                        width: 20,
+                      )
+                    : Image.asset(
+                        "assets/home_grey.png",
+                        height: 18,
+                        width: 20,
+                      ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: _currentIndex == 1
+                    ? Image.asset(
+                        "assets/doctor_blue.png",
+                        height: 18,
+                        width: 20,
+                      )
+                    : Image.asset(
+                        "assets/doctor_grey.png",
+                        height: 18,
+                        width: 20,
+                      ),
+                label: 'Doctor',
+                backgroundColor: white,
+              ),
+              BottomNavigationBarItem(
+                icon: _currentIndex == 2
+                    ? Image.asset(
+                        "assets/medic_blue.png",
+                        height: 18,
+                        width: 20,
+                      )
+                    : Image.asset(
+                        "assets/medic_grey.png",
+                        height: 18,
+                        width: 20,
+                      ),
+                label: 'Medicine',
+                backgroundColor: white,
+              ),
+              BottomNavigationBarItem(
+                icon: _currentIndex == 3
+                    ? Image.asset(
+                        "assets/calender_blue.png",
+                        height: 18,
+                        width: 20,
+                      )
+                    : Image.asset(
+                        "assets/calender_grey.png",
+                        height: 18,
+                        width: 20,
+                      ),
+                label: 'Appointment',
+                backgroundColor: white,
+              ),
+              BottomNavigationBarItem(
+                icon: _currentIndex == 4
+                    ? Image.asset(
+                        "assets/history_blue.png",
+                        height: 18,
+                        width: 20,
+                      )
+                    : Image.asset(
+                        "assets/history_medic.png",
+                        height: 18,
+                        width: 20,
+                      ),
+                label: 'History',
+                backgroundColor: white,
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 1
-                ? Image.asset(
-                    "assets/doctor_blue.png",
-                    height: 18,
-                    width: 20,
-                  )
-                : Image.asset(
-                    "assets/doctor_grey.png",
-                    height: 18,
-                    width: 20,
-                  ),
-            label: 'Doctor',
-            backgroundColor: white,
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 2
-                ? Image.asset(
-                    "assets/medic_blue.png",
-                    height: 18,
-                    width: 20,
-                  )
-                : Image.asset(
-                    "assets/medic_grey.png",
-                    height: 18,
-                    width: 20,
-                  ),
-            label: 'Medicine',
-            backgroundColor: white,
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 3
-                ? Image.asset(
-                    "assets/calender_blue.png",
-                    height: 18,
-                    width: 20,
-                  )
-                : Image.asset(
-                    "assets/calender_grey.png",
-                    height: 18,
-                    width: 20,
-                  ),
-            label: 'Appointment',
-            backgroundColor: white,
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 4
-                ? Image.asset(
-                    "assets/history_blue.png",
-                    height: 18,
-                    width: 20,
-                  )
-                : Image.asset(
-                    "assets/history_medic.png",
-                    height: 18,
-                    width: 20,
-                  ),
-            label: 'History',
-            backgroundColor: white,
-          ),
-        ],
-      ),
-    );
+        ));
+  }
+
+  _showExitDialog(BuildContext context) {
+    Future<bool?> _showExitDialog(BuildContext context) {
+      return showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Exit App'),
+          content: Text('Do you want to exit the app?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Yes'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
