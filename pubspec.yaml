@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
   image_picker: ^1.1.2
+  share: ^2.0.4
   social_login_buttons: ^1.0.7
   uuid: ^4.4.2
 
