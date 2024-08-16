@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,42 +42,8 @@ class _AddServicesState extends State<AddServices> {
     'ENT'
   ];
 
-  // Image
-  Uint8List? _image;
-
   // Loading bar
   bool isAdded = false;
-
-  // Error message for discount
-  String? discountErrorMessage;
-
-  @override
-  void initState() {
-    super.initState();
-    discountController.addListener(_validateDiscount);
-  }
-
-  @override
-  void dispose() {
-    discountController.removeListener(_validateDiscount);
-    super.dispose();
-  }
-
-  void _validateDiscount() {
-    final input = discountController.text;
-    if (input.isNotEmpty) {
-      final value = int.tryParse(input);
-      setState(() {
-        discountErrorMessage = (value != null && value > 100)
-            ? 'Discount cannot be more than 100%'
-            : null;
-      });
-    } else {
-      setState(() {
-        discountErrorMessage = null;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,53 +102,110 @@ class _AddServicesState extends State<AddServices> {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
-                    child: TextFormInputField(
-                      maxLenght: 15,
-                      controller: serviceNameController,
-                      hintText: "Service Name",
-                      textInputType: TextInputType.emailAddress,
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: mainColor,
+                      backgroundImage: AssetImage("assets/logo.png"),
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xffF6F7F9),
-                    ),
-                    margin: const EdgeInsets.only(
-                        left: 8.0, right: 8, top: 4, bottom: 5),
-                    padding: const EdgeInsets.only(left: 8.0, right: 8, top: 4),
-                    child: DropdownButton(
-                      hint: Text("Department"),
-                      isExpanded: true,
-                      value: dropdownvalue,
-                      underline: SizedBox(),
-                      icon: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: appColor,
-                      ),
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, left: 8),
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
                           child: Text(
-                            items,
-                            style: GoogleFonts.nunitoSans(fontSize: 16),
+                            'Service Name',
+                            style: GoogleFonts.plusJakartaSans(
+                                color: black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14),
                           ),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
-                    ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 10, right: 10),
+                        padding: const EdgeInsets.all(8),
+                        child: TextFormInputField(
+                          maxLenght: 15,
+                          controller: serviceNameController,
+                          hintText: "Service Name",
+                          textInputType: TextInputType.emailAddress,
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
-                    child: TextFormInputField(
-                      controller: priceController,
-                      hintText: "Price",
-                      textInputType: TextInputType.number,
-                    ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: Text(
+                            'Department',
+                            style: GoogleFonts.plusJakartaSans(
+                                color: black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xffF6F7F9),
+                        ),
+                        margin: const EdgeInsets.only(
+                            left: 8.0, right: 8, top: 4, bottom: 5),
+                        padding:
+                            const EdgeInsets.only(left: 8.0, right: 8, top: 4),
+                        child: DropdownButton(
+                          isExpanded: true,
+                          value: dropdownvalue,
+                          underline: SizedBox(),
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: appColor,
+                          ),
+                          items: items.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(
+                                items,
+                                style: GoogleFonts.nunitoSans(fontSize: 12),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownvalue = newValue!;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, left: 8),
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: Text(
+                            'Price',
+                            style: GoogleFonts.plusJakartaSans(
+                                color: black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14),
+                          ),
+                        ),
+                      ),
+                      TextFormInputField(
+                        controller: priceController,
+                        hintText: "Price",
+                        textInputType: TextInputType.number,
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -196,7 +218,7 @@ class _AddServicesState extends State<AddServices> {
                         contentPadding: EdgeInsets.all(8),
                         fillColor: Color(0xffF6F7F9),
                         hintText: "Description",
-                        hintStyle: GoogleFonts.nunitoSans(fontSize: 16),
+                        hintStyle: GoogleFonts.nunitoSans(fontSize: 15),
                         border: InputBorder.none,
                       ),
                     ),
@@ -207,52 +229,53 @@ class _AddServicesState extends State<AddServices> {
                             color: mainColor,
                           ),
                         )
-                      : SaveButton(
-                          title: "Save",
-                          onTap: () async {
-                            if (_image == null) {
-                              showMessageBar("Image is Required", context);
-                            } else if (serviceNameController.text.isEmpty) {
-                              showMessageBar(
-                                  "Service Name is Required", context);
-                            } else if (priceController.text.isEmpty) {
-                              showMessageBar("Price is Required", context);
-                            } else if (descriptionController.text.isEmpty) {
-                              showMessageBar(
-                                  "Description is Required", context);
-                            } else {
-                              setState(() {
-                                isAdded = true;
-                              });
-
-                              String result =
-                                  await DatabaseMethods().addService(
-                                serviceName: serviceNameController.text,
-                                department: dropdownvalue,
-                                doctorName: datas!['fullName'],
-                                doctorPhoto: datas['photoURl'],
-                                description: descriptionController.text,
-                                servicePrice: int.parse(priceController.text),
-                              );
-                              setState(() {
-                                isAdded = false;
-                              });
-                              // Handle the result accordingly
-                              if (result == 'success') {
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SaveButton(
+                            title: "Save",
+                            onTap: () async {
+                              if (serviceNameController.text.isEmpty) {
                                 showMessageBar(
-                                    "Services Added Successfully", context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (builder) => MainDashboard(),
-                                  ),
-                                );
+                                    "Service Name is Required", context);
+                              } else if (priceController.text.isEmpty) {
+                                showMessageBar("Price is Required", context);
+                              } else if (descriptionController.text.isEmpty) {
+                                showMessageBar(
+                                    "Description is Required", context);
                               } else {
-                                // Show an error message
-                                showMessageBar("Failed", context);
+                                setState(() {
+                                  isAdded = true;
+                                });
+
+                                String result =
+                                    await DatabaseMethods().addService(
+                                  serviceName: serviceNameController.text,
+                                  department: dropdownvalue,
+                                  doctorName: datas!['fullName'],
+                                  doctorPhoto: datas['photoURL'],
+                                  description: descriptionController.text,
+                                  servicePrice: int.parse(priceController.text),
+                                );
+                                setState(() {
+                                  isAdded = false;
+                                });
+                                // Handle the result accordingly
+                                if (result == 'success') {
+                                  showMessageBar(
+                                      "Services Added Successfully", context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (builder) => MainDashboard(),
+                                    ),
+                                  );
+                                } else {
+                                  // Show an error message
+                                  showMessageBar("Failed", context);
+                                }
                               }
-                            }
-                          },
+                            },
+                          ),
                         ),
                 ],
               );

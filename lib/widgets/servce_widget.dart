@@ -35,32 +35,48 @@ class ServiceWidget extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(8)),
         child: ListTile(
-          leading: Image.network(
-            doctorPhoto,
-            height: 120,
-            width: 120,
-            fit: BoxFit.cover,
-            filterQuality: FilterQuality.high,
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(
+              doctorPhoto,
+            ),
           ),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                titleText,
-                style: GoogleFonts.manrope(
-                    fontWeight: FontWeight.bold, fontSize: 14),
-              ),
-              Text(
-                department,
-                style: GoogleFonts.manrope(
-                    fontWeight: FontWeight.bold, fontSize: 14),
-              ),
               Text(
                 doctorName,
                 style: GoogleFonts.manrope(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                     color: mainColor),
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Service Name: ",
+                    style: GoogleFonts.manrope(
+                        fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                  Text(
+                    titleText,
+                    style: GoogleFonts.manrope(
+                        fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Department: ",
+                    style: GoogleFonts.manrope(
+                        fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                  Text(
+                    department,
+                    style: GoogleFonts.manrope(
+                        fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                ],
               ),
               Text(
                 descTitle,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare_doctor/screens/main/services/add_services.dart';
 import 'package:medicare_doctor/uitls/colors.dart';
 import 'package:medicare_doctor/widgets/servce_widget.dart';
@@ -16,6 +17,26 @@ class _ShowServicesState extends State<ShowServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: white,
+          ),
+        ),
+        title: Text(
+          "Services",
+          style: GoogleFonts.workSans(
+            color: white,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        backgroundColor: mainColor,
+      ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: mainColor,
           child: Icon(

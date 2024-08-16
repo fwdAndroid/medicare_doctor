@@ -240,42 +240,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         User? user = FirebaseAuth.instance.currentUser;
 
                         // Check if user data exists in Firestore
-                        DocumentSnapshot<Map<String, dynamic>> userSnapshot =
-                            await FirebaseFirestore.instance
-                                .collection("doctors")
-                                .doc(user?.uid)
-                                .get();
 
                         // If user data doesn't exist, store it
-                        if (!userSnapshot.exists) {
-                          // If user is not null and phone number is available, use it. Otherwise, use a default text.
-                          String contactNumber =
-                              user?.phoneNumber ?? "No Number Available";
 
-                          // Set user data in Firestore
-                          await FirebaseFirestore.instance
-                              .collection("doctors")
-                              .doc(user?.uid)
-                              .set({
-                            "photoURL": user?.photoURL?.toString(),
-                            "email": user?.email,
-                            "isblocked": false,
-                            "fullName": user?.displayName,
-                            "contactNumber": contactNumber,
-                            "uid": user?.uid,
-                            "password": "Auto Take Password",
-                            "rate": 0,
-                            "review": {}
-                          });
+                        // Set user data in Firestore
+                        await FirebaseFirestore.instance
+                            .collection("doctors")
+                            .doc(user?.uid)
+                            .set({
+                          "photoURL": user?.photoURL?.toString(),
+                          "email": user?.email,
+                          "isblocked": false,
+                          "fullName": user?.displayName,
+                          "contactNumber":
+                              user?.phoneNumber ?? "No Number Available",
+                          "uid": user?.uid,
+                          "password": "Auto Take Password",
+                          "rate": 0,
+                          "review": {}
+                        });
 
+                        setState(() {
+                          isGoogle = false;
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (builder) => MainDashboard()));
-                        }
-
-                        setState(() {
-                          isGoogle = false;
                         });
                       });
                     },
