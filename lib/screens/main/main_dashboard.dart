@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicare_doctor/screens/main/pages/appointment_page.dart';
-import 'package:medicare_doctor/screens/main/pages/doctor_page.dart';
 import 'package:medicare_doctor/screens/main/pages/history_page.dart';
 import 'package:medicare_doctor/screens/main/pages/home_page.dart';
 import 'package:medicare_doctor/screens/main/pages/medicine_page.dart';
@@ -17,7 +16,6 @@ class _MainDashboardState extends State<MainDashboard> {
 
   final List<Widget> _screens = [
     HomePage(),
-    DoctorPage(),
     MedicinePage(),
     AppointmentPage(),
     HistoryPage(),
@@ -58,21 +56,6 @@ class _MainDashboardState extends State<MainDashboard> {
               BottomNavigationBarItem(
                 icon: _currentIndex == 1
                     ? Image.asset(
-                        "assets/doctor_blue.png",
-                        height: 18,
-                        width: 20,
-                      )
-                    : Image.asset(
-                        "assets/doctor_grey.png",
-                        height: 18,
-                        width: 20,
-                      ),
-                label: 'Doctor',
-                backgroundColor: white,
-              ),
-              BottomNavigationBarItem(
-                icon: _currentIndex == 2
-                    ? Image.asset(
                         "assets/medic_blue.png",
                         height: 18,
                         width: 20,
@@ -86,7 +69,7 @@ class _MainDashboardState extends State<MainDashboard> {
                 backgroundColor: white,
               ),
               BottomNavigationBarItem(
-                icon: _currentIndex == 3
+                icon: _currentIndex == 2
                     ? Image.asset(
                         "assets/calender_blue.png",
                         height: 18,
@@ -101,7 +84,7 @@ class _MainDashboardState extends State<MainDashboard> {
                 backgroundColor: white,
               ),
               BottomNavigationBarItem(
-                icon: _currentIndex == 4
+                icon: _currentIndex == 3
                     ? Image.asset(
                         "assets/history_blue.png",
                         height: 18,
