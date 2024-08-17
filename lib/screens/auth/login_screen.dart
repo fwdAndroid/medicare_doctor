@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare_doctor/screens/auth/signup_screen.dart';
 import 'package:medicare_doctor/screens/main/main_dashboard.dart';
+import 'package:medicare_doctor/screens/main/setting_pages/change_password.dart';
 import 'package:medicare_doctor/services/auth_methods.dart';
 import 'package:medicare_doctor/uitls/colors.dart';
 import 'package:medicare_doctor/uitls/message_utils.dart';
@@ -29,6 +30,17 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     passwordVisible = true;
+
+    // Set persistence to LOCAL (optional as it is the default)
+    FirebaseAuth.instance.setPersistence(Persistence.LOCAL).then((_) {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MainDashboard()),
+        );
+      }
+    });
   }
 
   @override
@@ -174,7 +186,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                TextButton(onPressed: () {}, child: Text("Forgot Password"))
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => ChangePassword()));
+                    },
+                    child: Text(
+                      "Forgot Password",
+                    ))
               ],
             ),
           ),

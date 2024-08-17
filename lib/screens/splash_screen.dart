@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:medicare_doctor/screens/auth/login_screen.dart';
-import 'package:medicare_doctor/uitls/colors.dart';
+import 'package:medicare_doctor/screens/auth/auth_check.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,18 +14,17 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 4),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen())));
+            context, MaterialPageRoute(builder: (context) => AuthCheck())));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mainColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Image.asset("assets/logo.png"),
+            child: Image.asset("assets/newlogo.png"),
           ),
         ],
       ),
