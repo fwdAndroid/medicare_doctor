@@ -24,6 +24,10 @@ class AuthMethods {
       required String contact,
       required String username,
       required bool isblocked,
+      required String about,
+      required String experience,
+      required String department,
+      required String hospitalName,
       required Uint8List file}) async {
     String res = 'Wrong Email or Password';
     try {
@@ -40,10 +44,17 @@ class AuthMethods {
             rate: 0,
             review: {},
             fullName: username,
+            consultantFees: 0,
+            experience: experience,
+            about: about,
+            hospitalName: hospitalName,
+            numberreviews: 0,
+            price: 0,
             uid: cred.user!.uid,
             email: email,
             contactNumber: contact,
             password: pass,
+            department: department,
             photoURL: photoURL);
         await firebaseFirestore
             .collection('doctors')

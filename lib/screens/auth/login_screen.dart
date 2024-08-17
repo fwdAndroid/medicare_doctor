@@ -257,7 +257,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           "uid": user?.uid,
                           "password": "Auto Take Password",
                           "rate": 0,
-                          "review": {}
+                          "review": {},
+                          "about": "Neurology",
+                          "hospitalName": "Neurology Hospital",
+                          "experience": "5",
+                          "price": 9,
+                          "consultantFees": 34,
+                          "numberreviews": 0,
+                          'department': 'Neurology',
                         });
 
                         setState(() {

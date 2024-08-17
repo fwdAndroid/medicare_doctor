@@ -25,6 +25,28 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _contactController = TextEditingController();
+  TextEditingController _hospitalController = TextEditingController();
+  TextEditingController _aboutController = TextEditingController();
+  TextEditingController _experienceController = TextEditingController();
+
+  String dropdownvalue = 'Neurology';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Neurology',
+    'Cardiology',
+    'Gynecology',
+    'Pediatrics',
+    'Allergy',
+    'Dentist',
+    'Urology',
+    'Gastrology',
+    'Psychology',
+    'Medicine',
+    'Oncology',
+    'ENT'
+  ];
+
   bool isChecked = false;
   bool passwordVisible = false;
   //Image
@@ -226,6 +248,207 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ],
             ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0, left: 16),
+                  child: Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Hospital Name',
+                      style: GoogleFonts.plusJakartaSans(
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: _hospitalController,
+                    keyboardType: TextInputType.number,
+                    style: GoogleFonts.plusJakartaSans(color: black),
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        hintText: "Contact Number ",
+                        hintStyle: GoogleFonts.plusJakartaSans(
+                            color: black, fontSize: 12)),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0, left: 16),
+                  child: Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Experience',
+                      style: GoogleFonts.plusJakartaSans(
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: _experienceController,
+                    keyboardType: TextInputType.number,
+                    style: GoogleFonts.plusJakartaSans(color: black),
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        hintText: "Contact Number ",
+                        hintStyle: GoogleFonts.plusJakartaSans(
+                            color: black, fontSize: 12)),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0, left: 16),
+                  child: Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Hospital Name',
+                      style: GoogleFonts.plusJakartaSans(
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: _hospitalController,
+                    keyboardType: TextInputType.text,
+                    style: GoogleFonts.plusJakartaSans(color: black),
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        hintText: "Hospital Name ",
+                        hintStyle: GoogleFonts.plusJakartaSans(
+                            color: black, fontSize: 12)),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'Department',
+                      style: GoogleFonts.plusJakartaSans(
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xffF6F7F9),
+                  ),
+                  margin: const EdgeInsets.only(
+                      left: 8.0, right: 8, top: 4, bottom: 5),
+                  padding: const EdgeInsets.only(left: 8.0, right: 8, top: 4),
+                  child: DropdownButton(
+                    isExpanded: true,
+                    value: dropdownvalue,
+                    underline: SizedBox(),
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: appColor,
+                    ),
+                    items: items.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(
+                          items,
+                          style: GoogleFonts.nunitoSans(fontSize: 12),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownvalue = newValue!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0, left: 16),
+                  child: Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      'About Me',
+                      style: GoogleFonts.plusJakartaSans(
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: _aboutController,
+                    keyboardType: TextInputType.text,
+                    style: GoogleFonts.plusJakartaSans(color: black),
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: borderColor)),
+                        hintText: "About Me ",
+                        hintStyle: GoogleFonts.plusJakartaSans(
+                            color: black, fontSize: 12)),
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: isLoading
@@ -249,6 +472,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         } else if (_contactController.text.isEmpty) {
                           showMessageBar(
                               "Contact Number is required ", context);
+                        } else if (_experienceController.text.isEmpty) {
+                          showMessageBar("Experience is required ", context);
+                        } else if (_hospitalController.text.isEmpty) {
+                          showMessageBar("Hospital Name is required ", context);
+                        } else if (_aboutController.text.isEmpty) {
+                          showMessageBar(
+                              "Doctor description is required ", context);
                         } else {
                           setState(() {
                             isLoading = true;
@@ -256,9 +486,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           await AuthMethods().signUpUser(
                               isblocked: false,
                               email: _emailController.text.trim(),
+                              department: dropdownvalue,
                               pass: _passwordController.text.trim(),
                               username: _nameController.text.trim(),
                               contact: _contactController.text.trim(),
+                              about: _aboutController.text.trim(),
+                              experience: _experienceController.text.trim(),
+                              hospitalName: _hospitalController.text.trim(),
                               file: _image!);
                           setState(() {
                             isLoading = false;
