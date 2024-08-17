@@ -13,3 +13,4 @@ final dividerColor = Color(0xffCBD5E1);
 final completeColor = Color(0xff22C55E);
 final cancelColor = Color(0xffEF4444);
 final hintColor = Color(0xff94A3B8);
+final circle = Color(0xffF1F5F9);
