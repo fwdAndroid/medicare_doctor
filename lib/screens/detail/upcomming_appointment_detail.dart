@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare_doctor/uitls/colors.dart';
+import 'package:medicare_doctor/videocall/video_call.dart';
 import 'package:medicare_doctor/widgets/save_button.dart';
 
 class UpcommingAppointmentDetail extends StatefulWidget {
@@ -59,7 +60,14 @@ class _UpcommingAppointmentDetailState
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => VideoCall(
+                              friendName: widget.paitientName,
+                              callingid: widget.patientId)));
+                },
                 icon: Icon(
                   Icons.video_call,
                   color: mainColor,
