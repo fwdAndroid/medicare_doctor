@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:497438475571:android:b7d34c082703c1f87c6a46",
+        "mobilesdk_app_id": "1:497438475571:android:f24eaa31e8f820267c6a46",
         "android_client_info": {
-          "package_name": "com.medicaredoctor.app"
+          "package_name": "com.medicare_admin.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "497438475571-lsbd6qrtgf6lrehiqila9pqefmlgqfe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBHw94d6KrggFhHd_vizegQaGrkN1-4ndo"
@@ -20,7 +25,78 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497438475571-6il2nb0iksk0i2ksc8vse0pb6ajtgsaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497438475571:android:692b6af04ffa214d7c6a46",
+        "android_client_info": {
+          "package_name": "com.medicare_user.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497438475571-ful7agho2er5o7ps9t1mjsb4aq5rnlg1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.medicare_user.app",
+            "certificate_hash": "ae4faa1295bb23700b939d4ae40c85c1b03f3177"
+          }
+        },
+        {
+          "client_id": "497438475571-lsbd6qrtgf6lrehiqila9pqefmlgqfe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHw94d6KrggFhHd_vizegQaGrkN1-4ndo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497438475571-6il2nb0iksk0i2ksc8vse0pb6ajtgsaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497438475571:android:2c8e85f2388e1e097c6a46",
+        "android_client_info": {
+          "package_name": "com.medicaredoctors.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497438475571-lsbd6qrtgf6lrehiqila9pqefmlgqfe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHw94d6KrggFhHd_vizegQaGrkN1-4ndo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497438475571-6il2nb0iksk0i2ksc8vse0pb6ajtgsaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
