@@ -279,7 +279,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             borderSide: BorderSide(color: borderColor)),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: borderColor)),
-                        hintText: "Contact Number ",
+                        hintText: "Hospital Name",
                         hintStyle: GoogleFonts.plusJakartaSans(
                             color: black, fontSize: 12)),
                   ),
@@ -317,45 +317,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             borderSide: BorderSide(color: borderColor)),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: borderColor)),
-                        hintText: "Contact Number ",
-                        hintStyle: GoogleFonts.plusJakartaSans(
-                            color: black, fontSize: 12)),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0, left: 16),
-                  child: Align(
-                    alignment: AlignmentDirectional.topStart,
-                    child: Text(
-                      'Hospital Name',
-                      style: GoogleFonts.plusJakartaSans(
-                          color: black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  padding: const EdgeInsets.all(8),
-                  child: TextFormField(
-                    controller: _hospitalController,
-                    keyboardType: TextInputType.text,
-                    style: GoogleFonts.plusJakartaSans(color: black),
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: borderColor)),
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: borderColor)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: borderColor)),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: borderColor)),
-                        hintText: "Hospital Name ",
+                        hintText: "Experience ",
                         hintStyle: GoogleFonts.plusJakartaSans(
                             color: black, fontSize: 12)),
                   ),
