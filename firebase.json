@@ -1,1 +1,31 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"medicare-3dd28","appId":"1:497438475571:android:2c8e85f2388e1e097c6a46","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"medicare-3dd28","configurations":{"android":"1:497438475571:android:2c8e85f2388e1e097c6a46","web":"1:497438475571:web:31820af31c7c4d607c6a46"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "medicare-3dd28",
+          "appId": "1:497438475571:android:2c8e85f2388e1e097c6a46",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "medicare-3dd28",
+          "configurations": {
+            "android": "1:497438475571:android:2c8e85f2388e1e097c6a46",
+            "web": "1:497438475571:web:31820af31c7c4d607c6a46"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "site": "medicaredoctor",
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
