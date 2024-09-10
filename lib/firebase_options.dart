@@ -23,10 +23,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -50,20 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAirHw0hLErDFJQFKSKLILakWSPcJYhb9I',
-    appId: '1:497438475571:web:31820af31c7c4d607c6a46',
-    messagingSenderId: '497438475571',
-    projectId: 'medicare-3dd28',
-    authDomain: 'medicare-3dd28.firebaseapp.com',
-    storageBucket: 'medicare-3dd28.appspot.com',
-    measurementId: 'G-15VJF21G1C',
+    apiKey: 'AIzaSyBAWcpNVIosQau0BTJiPDMrfE1wV4_KgNo',
+    appId: '1:913992234259:web:36ef6e1784e31db583d6e6',
+    messagingSenderId: '913992234259',
+    projectId: 'estheva-f2ab9',
+    authDomain: 'estheva-f2ab9.firebaseapp.com',
+    storageBucket: 'estheva-f2ab9.appspot.com',
+    measurementId: 'G-YVV5YHYQ52',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBHw94d6KrggFhHd_vizegQaGrkN1-4ndo',
-    appId: '1:497438475571:android:2c8e85f2388e1e097c6a46',
-    messagingSenderId: '497438475571',
-    projectId: 'medicare-3dd28',
-    storageBucket: 'medicare-3dd28.appspot.com',
+    apiKey: 'AIzaSyARbcZAXsyzSP0yGuhGZX292wI8mR8gDco',
+    appId: '1:913992234259:android:02d510780ee00b2b83d6e6',
+    messagingSenderId: '913992234259',
+    projectId: 'estheva-f2ab9',
+    storageBucket: 'estheva-f2ab9.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCeEm0H82vFbciCO2smNtWiNrNA23ewiHg',
+    appId: '1:913992234259:ios:eb064eb7cde5af4683d6e6',
+    messagingSenderId: '913992234259',
+    projectId: 'estheva-f2ab9',
+    storageBucket: 'estheva-f2ab9.appspot.com',
+    iosBundleId: 'com.medicaredoctors.app',
   );
 }
