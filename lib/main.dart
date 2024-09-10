@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicare_doctor/firebase_options.dart';
-import 'package:medicare_doctor/responsive/responsive_layout.dart';
 import 'package:medicare_doctor/screens/splash_screen.dart';
-import 'package:medicare_doctor/website_medicare/web_screens/web_auth/web_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,8 +40,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: ResponsiveLayout(
-            mobileScreenLayout: SplashScreen(),
-            webScreenLayout: WebSignInPage()));
+        home: SplashScreen());
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:medicare_doctor/screens/auth/auth_check.dart';
+import 'package:medicare_doctor/screens/auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 4),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => AuthCheck())));
+            context, MaterialPageRoute(builder: (context) => LoginScreen())));
   }
 
   @override
