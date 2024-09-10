@@ -69,10 +69,6 @@ class LogoutWidget extends StatelessWidget {
             ElevatedButton(
               onPressed: () async {
                 // Sign out from Firebase
-                await FirebaseAuth.instance.signOut();
-
-                // Sign out from Google
-                await GoogleSignIn().signOut();
 
                 // Navigate to login screen
                 Navigator.pushReplacement(

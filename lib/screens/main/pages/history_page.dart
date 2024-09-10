@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medicare_doctor/screens/main/setting_pages/change_password.dart';
-import 'package:medicare_doctor/screens/main/setting_pages/edit_profile.dart';
 import 'package:medicare_doctor/screens/main/setting_pages/notification_screen.dart';
 import 'package:medicare_doctor/screens/main/setting_pages/privacy_policy.dart';
 import 'package:medicare_doctor/screens/main/setting_pages/support.dart';
@@ -13,7 +10,9 @@ import 'package:medicare_doctor/widgets/save_button.dart';
 import 'package:share/share.dart';
 
 class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+  final Map<String, dynamic> userData;
+
+  const HistoryPage({super.key, required this.userData});
 
   @override
   State<HistoryPage> createState() => _HistoryPageState();
@@ -37,42 +36,30 @@ class _HistoryPageState extends State<HistoryPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection("doctors")
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  if (!snapshot.hasData || snapshot.data == null) {
-                    return Center(child: Text('No data available'));
-                  }
-                  var snap = snapshot.data;
-
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage(snap['photoURL']),
-                        ),
-                        Text(
-                          snap['fullName'],
-                          style: GoogleFonts.workSans(
-                              fontWeight: FontWeight.w600, fontSize: 22),
-                        ),
-                        Text(
-                          snap['email'],
-                          style: GoogleFonts.workSans(
-                              fontWeight: FontWeight.w400, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(widget.userData['photoURL']),
+                  ),
+                  Text(
+                    widget.userData['doctorName'],
+                    style: GoogleFonts.poppins(
+                        color: appColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    widget.userData['email'],
+                    style: GoogleFonts.poppins(
+                        color: appColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(
               height: 8,
             ),
@@ -98,87 +85,6 @@ class _HistoryPageState extends State<HistoryPage> {
                     ),
                     title: Text(
                       "Appointment History",
-                      style: GoogleFonts.workSans(
-                          fontWeight: FontWeight.w500, fontSize: 16),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      color: appColor,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Divider(
-                      color: borderColor,
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => EditProfile()));
-                    },
-                    leading: Icon(
-                      Icons.edit,
-                      color: appColor,
-                    ),
-                    title: Text(
-                      "Edit Profile",
-                      style: GoogleFonts.workSans(
-                          fontWeight: FontWeight.w500, fontSize: 16),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      color: appColor,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Divider(
-                      color: borderColor,
-                    ),
-                  ),
-                  if (!isGoogleSignIn)
-                    ListTile(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (builder) => ChangePassword()));
-                      },
-                      leading: Icon(
-                        Icons.language_outlined,
-                        color: appColor,
-                      ),
-                      title: Text(
-                        "Change Password",
-                        style: GoogleFonts.workSans(
-                            fontWeight: FontWeight.w500, fontSize: 16),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: appColor,
-                      ),
-                    ),
-                  if (!isGoogleSignIn)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8),
-                      child: Divider(
-                        color: borderColor,
-                      ),
-                    ),
-                  ListTile(
-                    onTap: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (builder) => Payment()));
-                    },
-                    leading: Icon(
-                      Icons.payment,
-                      color: appColor,
-                    ),
-                    title: Text(
-                      "Payment Method",
                       style: GoogleFonts.workSans(
                           fontWeight: FontWeight.w500, fontSize: 16),
                     ),

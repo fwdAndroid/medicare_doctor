@@ -21,7 +21,9 @@ class _MainDashboardState extends State<MainDashboard> {
     final List<Widget> _screens = [
       HomePage(userData: widget.userData), // Pass userData to HomePage
       AppointmentPage(),
-      HistoryPage(),
+      HistoryPage(
+        userData: widget.userData,
+      ),
     ];
 
     return WillPopScope(
