@@ -20,7 +20,7 @@ class _MainDashboardState extends State<MainDashboard> {
   Widget build(BuildContext context) {
     final List<Widget> _screens = [
       HomePage(userData: widget.userData), // Pass userData to HomePage
-      AppointmentPage(),
+      AppointmentPage(userData: widget.userData),
       HistoryPage(
         userData: widget.userData,
       ),

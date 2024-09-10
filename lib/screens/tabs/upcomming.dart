@@ -6,7 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Upcomming extends StatefulWidget {
-  const Upcomming({super.key});
+  final Map<String, dynamic> userData;
+
+  Upcomming({super.key, required this.userData});
 
   @override
   State<Upcomming> createState() => _UpcommingState();
@@ -18,10 +20,9 @@ class _UpcommingState extends State<Upcomming> {
     return Scaffold(
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("appointments")
-              .where("doctorid",
-                  isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-              .where("appointmentStatus", isEqualTo: "send")
+              .collection("doctor_appointment")
+              .where("doctorId", isEqualTo: widget.userData['uuid'])
+              .where("status", isEqualTo: "confirm")
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -53,134 +54,113 @@ class _UpcommingState extends State<Upcomming> {
                               MaterialPageRoute(
                                   builder: (builder) =>
                                       UpcommingAppointmentDetail(
-                                          doctorDepartment:
-                                              data['doctorDepartment'],
+                                          appointmentEndTime:
+                                              data['appointmentEndTime'],
                                           appointmentDate:
                                               data['appointmentDate'],
                                           appointmentId: data['appointmentId'],
-                                          doctorExperience:
-                                              data['doctorExperience'],
-                                          doctorFees: data['doctorFees'],
-                                          appointmentTime:
-                                              data['appointmentTime'],
+                                          price: data['price'].toString(),
+                                          appointmentStartTime:
+                                              data['appointmentStartTime'],
                                           doctorName: data['doctorName'],
-                                          doctorPhoto: data['doctorPhoto'],
                                           doctorid: data['doctorid'],
                                           paitientName: data['paitientName'],
-                                          patientDob: data['patientDob'],
-                                          patientDocument:
-                                              data['patientDocument'],
-                                          patientGender: data['patientGender'],
-                                          patientId: data['patientId'],
-                                          patientProblem:
-                                              data['patientProblem'],
-                                          rate: data['rate'],
-                                          review: data['review'],
-                                          appointmentStatus:
-                                              data["appointmentStatus"])));
+                                          paitientDate: data['paitientDate'],
+                                          file: data['file'],
+                                          gender: data['gender'],
+                                          paitientUid: data['paitientUid'],
+                                          paitientProblem:
+                                              data['paitientProblem'],
+                                          status: data["status"])));
                         },
-                        child: SizedBox(
-                          height: 120,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            trailing: Container(
+                              width: 80,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: contColor),
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: Center(
+                                child: Text(
+                                  "Upcoming",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 12, color: mainColor),
+                                ),
+                              ),
+                            ),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.network(
-                                      data['doctorPhoto'],
-                                      height: 90,
-                                      width: 90,
-                                    ),
-                                    const SizedBox(
-                                      width: 7,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              data['paitientName'],
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 16,
-                                                  color: appColor,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            const SizedBox(
-                                              width: 3,
-                                            ),
-                                            Container(
-                                              width: 80,
-                                              height: 24,
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: contColor),
-                                                  borderRadius:
-                                                      BorderRadius.circular(4)),
-                                              child: Center(
-                                                child: Text(
-                                                  "Upcoming",
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 12,
-                                                      color: mainColor),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        Text(
-                                          "+82312412414424",
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 14,
-                                              color: appColor,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        const SizedBox(
-                                          height: 30,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              data['appointmentDate'],
-                                              style: GoogleFonts.poppins(
-                                                  color: dateColor,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                            const SizedBox(
-                                              width: 6,
-                                            ),
-                                            Text(
-                                              "|",
-                                              style: GoogleFonts.poppins(
-                                                  color: dateColor,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                            const SizedBox(
-                                              width: 6,
-                                            ),
-                                            Text(
-                                              data['appointmentTime'],
-                                              style: GoogleFonts.poppins(
-                                                  color: dateColor,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w300),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                Text(
+                                  data['appointmentDate'],
+                                  style: GoogleFonts.poppins(
+                                      color: dateColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  "|",
+                                  style: GoogleFonts.poppins(
+                                      color: dateColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  data['appointmentStartTime'],
+                                  style: GoogleFonts.poppins(
+                                      color: dateColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300),
                                 )
                               ],
                             ),
+                            title: Text(
+                              data['paitientName'],
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  color: appColor,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
+                          // Column(
+                          //   children: [
+                          //     Row(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       children: [
+                          //         Column(
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           children: [
+                          //             Row(
+                          //               children: [
+
+                          //                 const SizedBox(
+                          //                   width: 3,
+                          //                 ),
+
+                          //             Text(
+                          //               "+82312412414424",
+                          //               style: GoogleFonts.poppins(
+                          //                   fontSize: 14,
+                          //                   color: appColor,
+                          //                   fontWeight: FontWeight.w400),
+                          //             ),
+                          //             const SizedBox(
+                          //               height: 30,
+                          //             ),
+
+                          //       ],
+                          //     )
+                          //   ],
+                          // ),
                         ),
                       ),
                       Padding(

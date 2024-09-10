@@ -1,48 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medicare_doctor/screens/main/main_dashboard.dart';
 import 'package:medicare_doctor/uitls/colors.dart';
+import 'package:medicare_doctor/uitls/message_utils.dart';
 import 'package:medicare_doctor/videocall/video_call.dart';
 import 'package:medicare_doctor/widgets/save_button.dart';
 
 class UpcommingAppointmentDetail extends StatefulWidget {
   final appointmentDate;
+  final appointmentEndTime;
   final appointmentId;
-  final appointmentTime;
-  final doctorDepartment;
-  final doctorExperience;
-  final doctorFees;
+  final appointmentStartTime;
+  final price;
   final doctorName;
-  final doctorPhoto;
   final paitientName;
   final doctorid;
-  final patientId;
-  final patientDob;
-  final patientDocument;
-  final patientGender;
-  final patientProblem;
-  final rate;
-  final review;
-  final appointmentStatus;
+  final paitientUid;
+  final paitientDate;
+  final file;
+  final gender;
+  final paitientProblem;
+  final status;
   const UpcommingAppointmentDetail({
     super.key,
     required this.appointmentDate,
+    required this.appointmentEndTime,
     required this.appointmentId,
-    required this.appointmentStatus,
-    required this.appointmentTime,
-    required this.doctorDepartment,
-    required this.doctorExperience,
-    required this.doctorFees,
+    required this.status,
+    required this.appointmentStartTime,
+    required this.price,
     required this.doctorName,
-    required this.doctorPhoto,
     required this.doctorid,
     required this.paitientName,
-    required this.patientDob,
-    required this.patientDocument,
-    required this.patientGender,
-    required this.patientId,
-    required this.patientProblem,
-    required this.rate,
-    required this.review,
+    required this.paitientDate,
+    required this.file,
+    required this.gender,
+    required this.paitientUid,
+    required this.paitientProblem,
   });
 
   @override
@@ -52,6 +48,15 @@ class UpcommingAppointmentDetail extends StatefulWidget {
 
 class _UpcommingAppointmentDetailState
     extends State<UpcommingAppointmentDetail> {
+  bool isLoading = false;
+  String currentStatus = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _fetchAppointmentStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +71,7 @@ class _UpcommingAppointmentDetailState
                       MaterialPageRoute(
                           builder: (builder) => VideoCall(
                               friendName: widget.paitientName,
-                              callingid: widget.patientId)));
+                              callingid: widget.paitientUid)));
                 },
                 icon: Icon(
                   Icons.video_call,
@@ -98,15 +103,15 @@ class _UpcommingAppointmentDetailState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.network(
-                        widget.doctorPhoto,
-                        height: 90,
-                        width: 90,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Image.network(
+                    //     widget.doctorPhoto,
+                    //     height: 90,
+                    //     width: 90,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -130,7 +135,7 @@ class _UpcommingAppointmentDetailState
                                 ),
                               ),
                               Text(
-                                widget.appointmentTime,
+                                widget.appointmentStartTime,
                                 style: GoogleFonts.poppins(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -204,7 +209,7 @@ class _UpcommingAppointmentDetailState
                             ),
                           ),
                           Text(
-                            widget.appointmentTime,
+                            widget.appointmentStartTime,
                             style: GoogleFonts.poppins(
                               color: dateColor,
                               fontSize: 14,
@@ -274,7 +279,7 @@ class _UpcommingAppointmentDetailState
                             ),
                           ),
                           Text(
-                            widget.patientGender,
+                            widget.gender,
                             style: GoogleFonts.poppins(
                               color: dateColor,
                               fontSize: 14,
@@ -295,7 +300,7 @@ class _UpcommingAppointmentDetailState
                             ),
                           ),
                           Text(
-                            "\$" + " " + widget.doctorFees.toString(),
+                            "\$" + " " + widget.price.toString(),
                             style: GoogleFonts.poppins(
                               color: dateColor,
                               fontSize: 14,
@@ -316,7 +321,7 @@ class _UpcommingAppointmentDetailState
                             ),
                           ),
                           Text(
-                            widget.patientProblem,
+                            widget.paitientProblem,
                             style: GoogleFonts.poppins(
                               color: dateColor,
                               fontSize: 14,
@@ -331,12 +336,71 @@ class _UpcommingAppointmentDetailState
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SaveButton(title: "Complete", onTap: () {}),
-          )
+          isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: currentStatus != 'complete'
+                      ? SaveButton(
+                          title: "Complete",
+                          onTap: _markAsComplete,
+                        )
+                      : Container(), // Or use SizedBox.shrink() if you don't want to occupy space
+                ),
         ],
       ),
     );
+  }
+
+  Future<void> _fetchAppointmentStatus() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection("doctor_appointment")
+          .doc(widget.appointmentId)
+          .get();
+
+      if (doc.exists) {
+        setState(() {
+          currentStatus = doc.data()?['status'] ?? widget.status;
+        });
+      }
+    } catch (e) {
+      // Handle error if needed
+      print('Error fetching appointment status: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _markAsComplete() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("doctor_appointment")
+          .doc(widget.appointmentId)
+          .update({"status": "complete"});
+
+      setState(() {
+        currentStatus = "complete";
+      });
+
+      showMessageBar("Appointment Marked As Completed", context);
+    } catch (e) {
+      // Handle error if needed
+      print('Error updating appointment status: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

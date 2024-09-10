@@ -6,7 +6,8 @@ import 'package:medicare_doctor/screens/tabs/upcomming.dart';
 import 'package:medicare_doctor/uitls/colors.dart';
 
 class AppointmentPage extends StatefulWidget {
-  const AppointmentPage({super.key});
+  final Map<String, dynamic> userData;
+  const AppointmentPage({super.key, required this.userData});
 
   @override
   State<AppointmentPage> createState() => _AppointmentPageState();
@@ -40,7 +41,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
             ),
             tabs: <Widget>[
               Tab(
-                text: "Upcoming",
+                text: "Booked",
               ),
               Tab(
                 text: "Completed",
@@ -51,8 +52,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
             ],
           ),
         ),
-        body: const TabBarView(
-          children: <Widget>[Upcomming(), Completed(), Cancelled()],
+        body: TabBarView(
+          children: <Widget>[
+            Upcomming(
+              userData: widget.userData,
+            ),
+            Completed(
+              userData: widget.userData,
+            ),
+            Cancelled(
+              userData: widget.userData,
+            )
+          ],
         ),
       ),
     );
