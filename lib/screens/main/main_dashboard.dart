@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:medicare_doctor/screens/main/pages/appointment_page.dart';
 import 'package:medicare_doctor/screens/main/pages/history_page.dart';
 import 'package:medicare_doctor/screens/main/pages/home_page.dart';
-import 'package:medicare_doctor/screens/main/pages/medicine_page.dart';
 import 'package:medicare_doctor/uitls/colors.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -16,7 +15,6 @@ class _MainDashboardState extends State<MainDashboard> {
 
   final List<Widget> _screens = [
     HomePage(),
-    MedicinePage(),
     AppointmentPage(),
     HistoryPage(),
   ];
@@ -56,21 +54,6 @@ class _MainDashboardState extends State<MainDashboard> {
               BottomNavigationBarItem(
                 icon: _currentIndex == 1
                     ? Image.asset(
-                        "assets/medic_blue.png",
-                        height: 18,
-                        width: 20,
-                      )
-                    : Image.asset(
-                        "assets/medic_grey.png",
-                        height: 18,
-                        width: 20,
-                      ),
-                label: 'Medicine',
-                backgroundColor: white,
-              ),
-              BottomNavigationBarItem(
-                icon: _currentIndex == 2
-                    ? Image.asset(
                         "assets/calender_blue.png",
                         height: 18,
                         width: 20,
@@ -84,7 +67,7 @@ class _MainDashboardState extends State<MainDashboard> {
                 backgroundColor: white,
               ),
               BottomNavigationBarItem(
-                icon: _currentIndex == 3
+                icon: _currentIndex == 2
                     ? Image.asset(
                         "assets/history_blue.png",
                         height: 18,
