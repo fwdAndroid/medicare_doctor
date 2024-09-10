@@ -6,6 +6,9 @@ import 'package:medicare_doctor/screens/main/pages/home_page.dart';
 import 'package:medicare_doctor/uitls/colors.dart';
 
 class MainDashboard extends StatefulWidget {
+  Map<String, dynamic> userData;
+  MainDashboard({super.key, required this.userData});
+
   @override
   _MainDashboardState createState() => _MainDashboardState();
 }
@@ -13,14 +16,14 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    HomePage(),
-    AppointmentPage(),
-    HistoryPage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _screens = [
+      HomePage(userData: widget.userData), // Pass userData to HomePage
+      AppointmentPage(),
+      HistoryPage(),
+    ];
+
     return WillPopScope(
         onWillPop: () async {
           final shouldPop = await _showExitDialog(context);

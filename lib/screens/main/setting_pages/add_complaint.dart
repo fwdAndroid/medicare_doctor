@@ -156,10 +156,10 @@ class _AddComplaintState extends State<AddComplaint> {
                         setState(() {
                           isLoading = false;
                         });
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (builder) => MainDashboard()));
+                        // Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (builder) => MainDashboard()));
                         showMessageBar("Complaint Submitted to admin", context);
                       }
                     },

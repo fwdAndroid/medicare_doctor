@@ -14,12 +14,10 @@ class AuthMethods {
 // }
 
   //For Provider Sign In
-  Future<String> loginDoctor(String email, String password) async {
-    String res = 'Login failed';
+  Future<Map<String, dynamic>?> loginDoctor(
+      String email, String password) async {
     try {
       // Hash the entered password
-      // var bytes = utf8.encode(password);
-      // var hashedPassword = sha256.convert(bytes).toString();
 
       // Retrieve the doctor data from Firestore
       var docSnapshot = await FirebaseFirestore.instance
@@ -30,17 +28,17 @@ class AuthMethods {
       if (docSnapshot.docs.isNotEmpty) {
         var userData = docSnapshot.docs.first.data();
         if (userData['pass'] == password) {
-          res = 'success'; // Login successful
+          return userData; // Return user data if login is successful
         } else {
-          res = 'Incorrect password';
+          throw Exception('Incorrect password');
         }
       } else {
-        res = 'User not found';
+        throw Exception('User not found');
       }
     } catch (e) {
-      res = e.toString();
+      print(e);
+      return null;
     }
-    return res;
   }
 }
 

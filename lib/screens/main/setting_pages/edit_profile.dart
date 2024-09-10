@@ -274,10 +274,10 @@ class _EditProfileState extends State<EditProfile> {
                               setState(() {
                                 _isLoading = false;
                               });
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => MainDashboard()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (builder) => MainDashboard()));
                             }),
                       ),
               ),

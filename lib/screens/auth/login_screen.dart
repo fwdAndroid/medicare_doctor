@@ -165,7 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() {
                           isLoading = true;
                         });
-                        String rse = await AuthMethods().loginDoctor(
+                        Map<String, dynamic>? userData =
+                            await AuthMethods().loginDoctor(
                           _emailController.text.trim(),
                           _passwordController.text.trim(),
                         );
@@ -173,13 +174,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() {
                           isLoading = false;
                         });
-                        if (rse == 'success') {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => MainDashboard()));
+                        if (userData != null) {
+                          // Navigate to the profile page with userData
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MainDashboard(userData: userData),
+                            ),
+                          );
                         } else {
-                          showMessageBar(rse, context);
+                          showMessageBar("Login Failed", context);
                         }
                       }
                     },
